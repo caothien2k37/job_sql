@@ -29,6 +29,7 @@ PROMPT ===== VIEWS =====
 PROMPT
 
 @@../views/vw_app_user.sql
+@@../views/vv_active_user.sql
 
 
 PROMPT
