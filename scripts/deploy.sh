@@ -1,5 +1,5 @@
 #!/bin/bash
-
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 set -e
 
 PROJECT_DIR="/Users/thien/IdeaProjects/oracle-plsql-project"
