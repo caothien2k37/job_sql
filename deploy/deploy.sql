@@ -44,6 +44,7 @@ PROMPT ===== PROCEDURES =====
 PROMPT
 
 @@../procedures/pr_update_user_email.sql
+@@../procedures/pr_update_user_status.sql
 
 
 PROMPT
