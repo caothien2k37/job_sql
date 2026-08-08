@@ -1,10 +1,30 @@
-CREATE TABLE DEPARTMENT (
-                            ID           NUMBER PRIMARY KEY,
-                            DEPT_CODE    VARCHAR2(50) NOT NULL,
-                            DEPT_NAME    VARCHAR2(200) NOT NULL,
-                            IS_ACTIVE    NUMBER(1) DEFAULT 1,
-                            CREATE_TIME  TIMESTAMP DEFAULT SYSTIMESTAMP
-);
+DECLARE
+    V_COUNT NUMBER;
+BEGIN
+    SELECT COUNT(*)
+    INTO V_COUNT
+    FROM USER_TABLES
+    WHERE TABLE_NAME = 'DEPARTMENT';
 
-CREATE UNIQUE INDEX UK_DEPARTMENT_CODE
-    ON DEPARTMENT(DEPT_CODE);
+    IF V_COUNT = 0 THEN
+        EXECUTE IMMEDIATE '
+            CREATE TABLE DEPARTMENT (
+                ID          NUMBER PRIMARY KEY,
+                DEPT_CODE   VARCHAR2(50) NOT NULL,
+                DEPT_NAME   VARCHAR2(200) NOT NULL,
+                IS_ACTIVE   NUMBER(1) DEFAULT 1,
+                CREATE_TIME TIMESTAMP DEFAULT SYSTIMESTAMP
+            )
+        ';
+
+        EXECUTE IMMEDIATE '
+            CREATE UNIQUE INDEX UK_DEPARTMENT_CODE
+            ON DEPARTMENT(DEPT_CODE)
+        ';
+
+        DBMS_OUTPUT.PUT_LINE('Created table DEPARTMENT');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('DEPARTMENT already exists - skip');
+    END IF;
+END;
+/

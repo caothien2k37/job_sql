@@ -35,15 +35,25 @@ git log -1 --oneline
 
 echo "===== DEPLOY ORACLE ====="
 
-docker run --rm \
+docker run --rm -i \
   --network oracle-net \
   -v "$PROJECT_DIR:/workspace" \
   oracle-sqlcl \
   /nolog <<EOF
 
+WHENEVER SQLERROR EXIT SQL.SQLCODE
+
 connect $ORACLE_USER/"$ORACLE_PASSWORD"@$ORACLE_HOST:$ORACLE_PORT/$ORACLE_SERVICE
 
+PROMPT ===== CONNECT SUCCESS =====
+
+SELECT USER FROM DUAL;
+
+PROMPT ===== START DEPLOY.SQL =====
+
 @deploy/deploy.sql
+
+PROMPT ===== DEPLOY.SQL COMPLETED =====
 
 exit
 

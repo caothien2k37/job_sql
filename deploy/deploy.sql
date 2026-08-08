@@ -96,6 +96,11 @@ FROM USER_ERRORS
 ORDER BY NAME, SEQUENCE;
 
 
+PROMPT
+PROMPT ==========================================
+PROMPT VALIDATE DEPLOY
+PROMPT ==========================================
+
 DECLARE
 V_COUNT NUMBER;
 BEGIN
@@ -114,12 +119,10 @@ WHERE STATUS = 'INVALID'
     );
 
 IF V_COUNT > 0 THEN
-
         RAISE_APPLICATION_ERROR(
             -20099,
             'DEPLOY FAILED. INVALID OBJECT COUNT = ' || V_COUNT
         );
-
 END IF;
 
 END;
