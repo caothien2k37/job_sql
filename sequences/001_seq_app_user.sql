@@ -1,0 +1,23 @@
+DECLARE
+    V_COUNT NUMBER;
+BEGIN
+
+    SELECT COUNT(*)
+    INTO V_COUNT
+    FROM USER_SEQUENCES
+    WHERE SEQUENCE_NAME = 'SEQ_APP_USER';
+
+    IF V_COUNT = 0 THEN
+        EXECUTE IMMEDIATE '
+            CREATE SEQUENCE SEQ_APP_USER
+            START WITH 1
+            INCREMENT BY 1
+            NOCACHE
+            NOCYCLE
+        ';
+    END IF;
+
+END;
+/
+
+
